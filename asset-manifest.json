@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/MARORDER/static/css/main.ba7f34c9.css",
-    "main.js": "/MARORDER/static/js/main.c98479cf.js",
-    "static/js/453.850eb5f3.chunk.js": "/MARORDER/static/js/453.850eb5f3.chunk.js",
-    "index.html": "/MARORDER/index.html",
-    "main.ba7f34c9.css.map": "/MARORDER/static/css/main.ba7f34c9.css.map",
-    "main.c98479cf.js.map": "/MARORDER/static/js/main.c98479cf.js.map",
-    "453.850eb5f3.chunk.js.map": "/MARORDER/static/js/453.850eb5f3.chunk.js.map"
+    "main.css": "/MARAPP/static/css/main.ba7f34c9.css",
+    "main.js": "/MARAPP/static/js/main.f13a1d8a.js",
+    "static/js/453.850eb5f3.chunk.js": "/MARAPP/static/js/453.850eb5f3.chunk.js",
+    "index.html": "/MARAPP/index.html",
+    "main.ba7f34c9.css.map": "/MARAPP/static/css/main.ba7f34c9.css.map",
+    "main.f13a1d8a.js.map": "/MARAPP/static/js/main.f13a1d8a.js.map",
+    "453.850eb5f3.chunk.js.map": "/MARAPP/static/js/453.850eb5f3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ba7f34c9.css",
-    "static/js/main.c98479cf.js"
+    "static/js/main.f13a1d8a.js"
   ]
 }
