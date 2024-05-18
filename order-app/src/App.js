@@ -1,38 +1,68 @@
 import React, { useState } from 'react';
-import Basket from './Basket';
+import BasketSection from './Basket';
 import AppetizerSection from './AppetizerSection'; 
 import MainCourseSection from './MainCourseSection'; 
 import DrinkSection from './DrinkSection';
 import DessertSection from './DessertSection';
+import Homepage from './Homepage'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faBasketShopping, faCake, faGlassWater, faBars } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 
 const App = () => {
-  // State to track which section is active
   const [activeSection, setActiveSection] = useState(null);
-  // State to track the visibility of the sidebar
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  // State to manage the basket items
   const [basketItems, setBasketItems] = useState([]);
 
-  // Function to toggle the sidebar
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  // Function to add an item to the basket
   const addToBasket = (item) => {
     setBasketItems([...basketItems, item]);
   };
 
-  // Function to place the order
+  const removeFromBasket = (index) => {
+    const updatedBasket = [...basketItems];
+    updatedBasket.splice(index, 1);
+    setBasketItems(updatedBasket);
+  };
+
+  const reduceQuantity = (index, quantityToRemove) => {
+    const updatedBasketItems = [...basketItems];
+    const updatedItem = { ...updatedBasketItems[index] };
+    updatedItem.quantity -= quantityToRemove;
+  
+    // If quantity becomes zero, remove the item from the basket
+    if (updatedItem.quantity <= 0) {
+      updatedBasketItems.splice(index, 1);
+    } else {
+      updatedBasketItems[index] = updatedItem;
+    }
+  
+    setBasketItems(updatedBasketItems);
+  };
+   const addQuantity = (index, amount) => {
+    const updatedBasket = [...basketItems];
+    updatedBasket[index].quantity += amount; // Increase the quantity by the specified amount
+    setBasketItems(updatedBasket);
+  };
+  
+
   const placeOrder = () => {
-    // Implement order placement logic here
     console.log('Placing order:', basketItems);
-    // Clear the basket after placing the order
     setBasketItems([]);
   };
+
+  // Function to calculate the total price
+const calculateTotalPrice = () => {
+  let totalPrice = 0;
+  basketItems.forEach((item) => {
+    totalPrice += item.price * item.quantity;
+  });
+  return totalPrice;
+};
+
 
   return (
     <div className="app">
@@ -55,7 +85,6 @@ const App = () => {
               <FontAwesomeIcon icon={faUtensils} /> Main Course
             </button>
           </li>
-        
           <li>
             <button onClick={() => setActiveSection('Drink')}>
               <FontAwesomeIcon icon={faGlassWater} /> Drinks
@@ -81,7 +110,12 @@ const App = () => {
         {activeSection === 'main-course' && <MainCourseSection addToBasket={addToBasket} />}
         {activeSection === 'Drink' && <DrinkSection addToBasket={addToBasket} />}
         {activeSection === 'Dessert' && <DessertSection addToBasket={addToBasket} />}
-        {activeSection === 'Basket' && <Basket basketItems={basketItems} onPlaceOrder={placeOrder} />}
+        {activeSection === 'Basket' && <BasketSection basketItems={basketItems} onPlaceOrder={placeOrder} onRemoveItem={removeFromBasket} onReduceQuantity={reduceQuantity} addQuantity={addQuantity} />}
+
+        {!activeSection && <Homepage />}
+        
+
+        
       </div>
     </div>
   );

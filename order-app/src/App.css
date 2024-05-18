@@ -236,54 +236,6 @@ body {
   background-color: #dcdcdc;
 }
 
-.basket-section {
-  background-color: #f9f9f9; /* Light gray background */
-  padding: 10px; /* Adjusted padding */
-  border-radius: 5px; /* Adjusted border radius */
-  margin-top: 10px; /* Adjusted margin */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.basket-items-container {
-  width: 100%;
-}
-
-.basket-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px; /* Adjusted margin */
-}
-
-.basket-item img {
-  width: 36px; /* Adjusted width */
-  height: 36px; /* Adjusted height */
-  border-radius: 50%; /* Make the image round */
-  margin-right: 6px; /* Adjusted margin */
-}
-
-.basket-item p {
-  margin: 0;
-}
-
-.place-order-button {
-  background-color: #4CAF50; /* Green background */
-  color: white;
-  border: none;
-  padding: 6px 12px; /* Adjusted padding */
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 10px; /* Adjusted font size */
-  margin-top: 10px; /* Adjusted margin */
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.place-order-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-}
 
 
 .homepage {
