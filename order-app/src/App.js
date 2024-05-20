@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import BasketSection from './Basket';
-import AppetizerSection from './AppetizerSection'; 
 import MainCourseSection from './MainCourseSection'; 
 import DrinkSection from './DrinkSection';
 import DessertSection from './DessertSection';
@@ -42,27 +41,22 @@ const App = () => {
   
     setBasketItems(updatedBasketItems);
   };
-   const addQuantity = (index, amount) => {
+   
+  const addQuantity = (index, amount) => {
     const updatedBasket = [...basketItems];
     updatedBasket[index].quantity += amount; // Increase the quantity by the specified amount
     setBasketItems(updatedBasket);
   };
-  
 
   const placeOrder = () => {
     console.log('Placing order:', basketItems);
     setBasketItems([]);
+    // setActiveSection(null); // Comment out or remove this line
   };
 
-  // Function to calculate the total price
-const calculateTotalPrice = () => {
-  let totalPrice = 0;
-  basketItems.forEach((item) => {
-    totalPrice += item.price * item.quantity;
-  });
-  return totalPrice;
-};
-
+  const openNavbar = () => {
+    setSidebarOpen(true);
+  };
 
   return (
     <div className="app">
@@ -75,11 +69,6 @@ const calculateTotalPrice = () => {
         <div className="separator"></div>
         <h3>Menu</h3>
         <ul>
-          <li>
-            <button onClick={() => setActiveSection('appetizer')}>
-              <FontAwesomeIcon icon={faUtensils} /> Appetizer
-            </button>
-          </li>
           <li>
             <button onClick={() => setActiveSection('main-course')}>
               <FontAwesomeIcon icon={faUtensils} /> Main Course
@@ -106,16 +95,19 @@ const calculateTotalPrice = () => {
         </ul>
       </nav>
       <div className="content">
-        {activeSection === 'appetizer' && <AppetizerSection addToBasket={addToBasket} />}
         {activeSection === 'main-course' && <MainCourseSection addToBasket={addToBasket} />}
         {activeSection === 'Drink' && <DrinkSection addToBasket={addToBasket} />}
         {activeSection === 'Dessert' && <DessertSection addToBasket={addToBasket} />}
-        {activeSection === 'Basket' && <BasketSection basketItems={basketItems} onPlaceOrder={placeOrder} onRemoveItem={removeFromBasket} onReduceQuantity={reduceQuantity} addQuantity={addQuantity} />}
-
-        {!activeSection && <Homepage />}
-        
-
-        
+        {activeSection === 'Basket' && (
+          <BasketSection
+            basketItems={basketItems}
+            onPlaceOrder={placeOrder}
+            onRemoveItem={removeFromBasket}
+            onReduceQuantity={reduceQuantity}
+            addQuantity={addQuantity}
+          />
+        )}
+        {!activeSection && <Homepage onOpenNavbar={openNavbar} />}
       </div>
     </div>
   );

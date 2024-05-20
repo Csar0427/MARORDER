@@ -2,11 +2,15 @@
     background-color: #f9f9f9; /* Light gray background */
     padding: 5px; /* Adjusted padding */
     border-radius: 3px; /* Adjusted border radius */
-    margin-top: 5px; /* Adjusted margin */
+    margin-top: 100px; /* Adjusted margin */
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
+    border: solid;
+    border-width: 20px;
+    border-color: rgb(249, 199, 47);
+
   }
   
   .basket-items-container {
@@ -96,4 +100,11 @@
   
   .add-quantity-button:hover {
     background-color: rgb(31, 81, 44); /* Darker red on hover */
+  }
+  .confirm-button{
+    background-color: rgb(15, 209, 38);
+    color: white;
+    font: bold;
+    border-radius: 5px;
+    margin-left: 20px;
   }

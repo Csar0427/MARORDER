@@ -1,61 +1,61 @@
+// Basket.js
 import React, { useState } from 'react';
 import './Basket.css';
+import OrderSummary from './OrderSummary'; // Import the OrderSummary component
 
 const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuantity, addQuantity }) => {
-  const [showAddPopup, setShowAddPopup] = useState(false); // State to control add popup
-  const [showRemovePopup, setShowRemovePopup] = useState(false); // State to control remove popup
-  const [addQuantityInput, setAddQuantityInput] = useState(""); // State for add quantity input
-  const [removeQuantityInput, setRemoveQuantityInput] = useState(""); // State for remove quantity input
-  const [selectedItemIndex, setSelectedItemIndex] = useState(null); // State to track the index of the selected item
-  const [requestInput, setRequestInput] = useState(""); // State for user requests
+  const [showAddPopup, setShowAddPopup] = useState(false); 
+  const [showRemovePopup, setShowRemovePopup] = useState(false); 
+  const [addQuantityInput, setAddQuantityInput] = useState(""); 
+  const [removeQuantityInput, setRemoveQuantityInput] = useState(""); 
+  const [selectedItemIndex, setSelectedItemIndex] = useState(null); 
+  const [requestInput, setRequestInput] = useState(""); 
+  const [ticketNumber, setTicketNumber] = useState(null); // State to store the generated ticket number
+  const [showOrderSummary, setShowOrderSummary] = useState(false); // State to control order summary visibility
 
-  // Function to handle adding quantity to an existing item
   const handleAddQuantity = (index) => {
-    setSelectedItemIndex(index); // Set the selected item index
-    setShowAddPopup(true); // Show the add popup
+    setSelectedItemIndex(index); 
+    setShowAddPopup(true); 
   };
 
-  // Function to handle removing quantity from an existing item
   const handleRemoveQuantity = (index) => {
-    setSelectedItemIndex(index); // Set the selected item index
-    setShowRemovePopup(true); // Show the remove popup
+    setSelectedItemIndex(index); 
+    setShowRemovePopup(true); 
   };
 
-  // Function to confirm addition of item with specified quantity
   const confirmAdd = () => {
     const quantityToAdd = parseInt(addQuantityInput);
     if (quantityToAdd > 0) {
       addQuantity(selectedItemIndex, quantityToAdd);
     }
-    setShowAddPopup(false); // Close the add popup
-    setAddQuantityInput(""); // Reset add quantity input after handling
+    setShowAddPopup(false); 
+    setAddQuantityInput(""); 
   };
 
-  // Function to confirm removal of item with specified quantity
   const confirmRemove = () => {
     const quantityToRemove = parseInt(removeQuantityInput);
     if (quantityToRemove > 0) {
-      onReduceQuantity(selectedItemIndex, quantityToRemove); // Reduce quantity if input is less than quantity
+      onReduceQuantity(selectedItemIndex, quantityToRemove); 
     }
-    setShowRemovePopup(false); // Close the remove popup
-    setRemoveQuantityInput(""); // Reset remove quantity input after handling
+    setShowRemovePopup(false); 
+    setRemoveQuantityInput(""); 
   };
 
-  // Function to handle user requests
   const handleRequestChange = (e) => {
     setRequestInput(e.target.value);
   };
 
-  // Function to handle placing the order
   const handlePlaceOrder = () => {
-    // Place order logic goes here
+    // Generate a random ticket number
+    const generatedTicketNumber = Math.floor(Math.random() * 1000000);
+    setTicketNumber(generatedTicketNumber);
+    setShowOrderSummary(true); // Show the order summary
     // Clear request input after placing order
     setRequestInput("");
-    // Other logic for placing the order
-    onPlaceOrder();
+    onPlaceOrder(); // Call the onPlaceOrder callback
   };
+  
 
-  // Function to calculate total price
   const calculateTotalPrice = () => {
     let totalPrice = 0;
     basketItems.forEach((item) => {
@@ -64,6 +64,10 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
     });
     return totalPrice;
   };
+
+ // Inside BasketSection component, just before rendering OrderSummary
+console.log("Basket Items:", basketItems);
+
 
   return (
     <div className="basket-section">
@@ -78,7 +82,6 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
           </div>
         ))}
       </div>
-      {/* User request input */}
       {basketItems.length > 0 && (
         <div className="request-input">
           <textarea
@@ -88,7 +91,6 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
           />
         </div>
       )}
-      {/* Add popup */}
       {showAddPopup && (
         <div className="popup">
           <h3>Add Item</h3>
@@ -102,7 +104,6 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
           <button className="confirm-button" onClick={confirmAdd}>Confirm</button>
         </div>
       )}
-      {/* Remove popup */}
       {showRemovePopup && (
         <div className="popup">
           <h3>Remove Item</h3>
@@ -116,7 +117,6 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
           <button className="confirm-button" onClick={confirmRemove}>Confirm</button>
         </div>
       )}
-      {/* Total price */}
       <div className="total-price">
         Total Price: ₱{calculateTotalPrice().toFixed(2)}
       </div>
@@ -124,6 +124,10 @@ const BasketSection = ({ basketItems, onPlaceOrder, onRemoveItem, onReduceQuanti
         <button className="place-order-button" onClick={handlePlaceOrder}>
           Place Order
         </button>
+      )}
+      {/* Order summary */}
+      {showOrderSummary && (
+        <OrderSummary basketItems={basketItems} ticketNumber={ticketNumber} />
       )}
     </div>
   );
